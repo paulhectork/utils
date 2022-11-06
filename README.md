@@ -17,7 +17,7 @@ character permutations on filenames. `fileformname` allows to:
 - **copy or move the files to an other location**, expressed as a relative or
   absolute path
 
-### `characters:md`**
+### `characters:md`
 
 a list of special characters (mostly for eScriptorium)
 
