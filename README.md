@@ -8,8 +8,8 @@ useful files, scripts and whatnot.
 
 ### `formfilename.sh`
 
-formfilename is a customizable filename formatter, to perform mass
-character permutations on filenames. `fileformname` allows to: 
+`formfilename` is a customizable filename formatter, to rename all files in
+a folder using pattern replacement. `fileformname` allows to: 
 - **change the name of all the files** in a folder (non recursively) 
 - **use bash ERE regular expressions**, including subgroup capturing
 - **rename the files in place** (by deleting the old files and only keep the
