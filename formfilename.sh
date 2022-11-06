@@ -62,10 +62,9 @@ USAGE: bash filename_formatter.sh PATH/TO/DIR [-c|-p|-r|-h]
   -h        : show help and exit
   -c        : copy files instead of renaming them
   -o PATH   : the output directory where to move/copy the renamed files
-  -p STRING : the pattern to replace (defaults to ' ')
-  -r STRING : the replacement pattern (with which to replace) 
-              with which to perform the replacements (defaults 
-              to '_')
+  -p STRING : the pattern to replace (defaults to whitespace, or \s')
+  -r STRING : the replacement pattern (defaults to '_', capture groups
+              are as follows: '\1', '\2', ...)
 
 EOF
 }
@@ -104,7 +103,7 @@ mover() {
 unset OPTARG  # undefine OPTARG wich could be used as an ENV variable
 
 # define defaults
-cwd=$(pwd | sed -e "s/\/*\s*$//g");  # remove trailing slashes
+cwd=$(pwd | sed -r "s/\/*\s*$//g");  # remove trailing slashes
 copy=0;
 src="\s";
 rpl="_";
