@@ -167,7 +167,7 @@ cd "$indir";
 for f in *; do
     if [ -f "$f" ]; then
         newname="$outdir/"$(echo "$f" | sed -r "s/$src/$rpl/g");
-        #mover "$f" "$newname" "$copy";
+        mover "$f" "$newname" "$copy";
     fi;
 done;
 
