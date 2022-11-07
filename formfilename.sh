@@ -1,6 +1,6 @@
 #!/env/bin/bash
 
-# USAGE: bash filename_formatter.sh /path/to/directory [-c|-p|-r|-h]
+# USAGE: bash formfilename.sh /path/to/directory [-c|-p|-r|-h|-o]
 
 #   ABOUT: formfilename is a script to change filenames in a folder, 
 #   using a regular-expression search and replace system. files are 
@@ -37,7 +37,7 @@ usage() {
 
     cat<<EOF
 
-USAGE: bash filename_formatter.sh PATH/TO/DIR [-c|-p|-r|-h]
+USAGE: bash formfilename.sh PATH/TO/DIR [-c|-p|-r|-h|-o]
 
   ABOUT: formfilename is a script to change filenames in a folder, 
   using a regular-expression search and replace system. files are 
@@ -73,6 +73,7 @@ EOF
 check_path() {
     # $1: the directory to process
     # $2: boolean flag argument to exit if the directory doesn't exist
+    # the 'if' below allows to not show an error message when doing 'bash formfilename.sh -h'
     if [ "$1" = "" ] && [ "$2" -eq 1 ]; then
         usage
         echo "ERROR : please provide the directory to process as an argument. exiting...";
@@ -109,6 +110,8 @@ src="\s";
 rpl="_";
 outdir="."
 
+echo $cwd;
+
 # shift moves the script's option by -1 so the options aren't scrambled 
 indir="$1" && shift;
 
@@ -126,7 +129,7 @@ while getopts "hcp:r:o:" option; do
     case $option in
         h) 
             # help message
-            usage && exit 10;;
+            usage && exit;;
         c) 
             # copy instead of moving. defines a bool indicating to copy or to move
             copy=1;;
@@ -159,7 +162,7 @@ if [[ ! "$outdir" = /* ]] && [[ "$outdir" != "." ]];  then
     outdir="$cwd/$outdir"
 fi;
 
-echo "ARG '$indir' SRCTOKEN '$src' RPLTOKEN '$rpl' OUTDIR='$outdir'"
+# echo "ARG '$indir' SRCTOKEN '$src' RPLTOKEN '$rpl' OUTDIR='$outdir'"
 
 cd "$indir";
 
