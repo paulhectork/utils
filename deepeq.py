@@ -13,16 +13,13 @@ def listeq(o1:t.List, o2:t.List) -> bool:
     if not same:
         return same
     # 2) check that items in both lists are the same type
-    same = all( type(o1[i]) == type(o2[i]) for i,el in enumerate(o1) )
+    same = all( type(o1[i])==type(o2[i]) for i,el in enumerate(o1) )
     if not same:
         return same
     # 3) check the values, recursively if needed
-    for i,el in enumerate(o1):
-        same = baseeq(o1[i], o2[i])
-        # if the o1[i] != o2[i], then same == False. stop the algo
-        if not same:
-            break
+    same = all( baseeq(o1[i], o2[i]) for i,el in enumerate(o1) )
     return same
+
 
 def dicteq(o1:t.Dict, o2:t.Dict) -> bool:
     """check that the dict o1 is the same as the dict o2, recursively if needed"""
@@ -39,15 +36,13 @@ def dicteq(o1:t.Dict, o2:t.Dict) -> bool:
     if not same:
         return same
     # 3) check that the types of the values for each key is the same in both dicts
-    same = all( type(v1) == type(v2) for v1,v2 in zip(o1.values(), o2.values()) )
+    same = all( type(v1)==type(v2) for v1,v2 in zip(o1.values(), o2.values()) )
     if not same:
         return same
     # 4) check that the values are the same in both dicts
-    for v1, v2 in zip(o1.values(), o2.values()):
-        same = baseeq(v1, v2)
-        if not same:
-            return same
+    same = all( baseeq(v1,v2) for v1, v2 in zip(o1.values(), o2.values()) )
     return same
+
 
 def baseeq(o1:t.Any, o2:t.Any) -> bool:
     """
